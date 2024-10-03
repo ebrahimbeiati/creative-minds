@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./single.module.css";
+import styles from "./singlePost.module.css";
 import PostUser from "@/components/postUser/postUser";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
@@ -29,9 +29,11 @@ export const generateMetadata = async ({ params }) => {
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
 
+  // FETCH DATA WITH AN API
   const post = await getData(slug);
 
- 
+  // FETCH DATA WITHOUT AN API
+  // const post = await getPost(slug);
 
   return (
     <div className={styles.container}>
