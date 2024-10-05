@@ -7,16 +7,17 @@
 
 .top{
   display: flex;
+  position: relative; /* Ensure it’s relative to align children correctly */
 }
 
 .imgContainer{
-  width: 90%;
-  height: 400px;
-  position: relative;
+  width: 100%;
+  height: 400px; /* Make sure the container has a fixed height */
+  position: relative; /* Needed for the 'fill' prop in Next.js Image */
 }
 
 .img{
-  object-fit: cover;
+  object-fit: cover; /* This ensures the image fills the container */
 }
 
 .date{

@@ -42,10 +42,13 @@
 .imgContainer {
   flex: 1;
   position: relative;
+  border-radius: 10%;
 }
 
 .img{
   object-fit: contain;
+    border-radius: 10%;
+
 }
 
 @media (max-width: 768px) {

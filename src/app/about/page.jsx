@@ -31,13 +31,13 @@ const AboutPage = () => {
             <p>Customers</p>
           </div>
           <div className={styles.box}>
-            <h1>10 K+</h1>
+            <h1>30 K+</h1>
             <p>Hours of experience</p>
           </div>
         </div>
       </div>
       <div className={styles.imgContainer}>
-        <Image src="/about.png" alt="About Image" fill className={styles.img} />
+        <Image src="/about.png" alt="About Image"  fill className={styles.img} />
       </div>
     </div>
   );

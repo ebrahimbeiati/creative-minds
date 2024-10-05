@@ -5,8 +5,19 @@
 
 
 // next.config.mjs
+// next.config.mjs
+
 export default {
   images: {
-    domains: ['i.giphy.com'], // Add the domain here
-  },
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.giphy.com', // Giphy domain
+      }
+    ]
+  }
 };

@@ -9,7 +9,7 @@ const NavItems = ({ item }) => {
             href={item.path} className={`${styles.container} ${pathName === item.path && styles.active}`}>
             {item.title}
         </Link>
-  )
-}
+    );
+};
 
 export default NavItems

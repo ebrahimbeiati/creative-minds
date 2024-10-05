@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./links.module.css";
-import NavLink from "./navItems/navItems";
+import styles from "./Links.module.css";
+import NavItems from "./navItems/navItems";
 import Image from "next/image";
-import { handleLogout } from "@/lib/action";
 
 const links = [
   {
@@ -28,27 +27,23 @@ const links = [
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
 
-  // TEMPORARY
-  // const session = true;
-  // const isAdmin = true;
-
   return (
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
-          <NavLink item={link} key={link.title} />
+          <NavItems item={link} key={link.title} />
         ))}
         {session?.user ? (
           <>
             {session.user?.isAdmin && (
-              <NavLink item={{ title: "Admin", path: "/admin" }} />
+              <NavItems item={{ title: "Admin", path: "/admin" }} />
             )}
-            <form action={handleLogout}>
+            <form >
               <button className={styles.logout}>Logout</button>
             </form>
           </>
         ) : (
-          <NavLink item={{ title: "Login", path: "/login" }} />
+          <NavItems item={{ title: "Login", path: "/login" }} />
         )}
       </div>
       <Image
@@ -62,7 +57,7 @@ const Links = ({ session }) => {
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
-            <NavLink item={link} key={link.title} />
+            <NavItems item={link} key={link.title} />
           ))}
         </div>
       )}
