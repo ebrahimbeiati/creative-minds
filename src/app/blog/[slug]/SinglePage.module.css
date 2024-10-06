@@ -26,31 +26,35 @@
 
 .detail{
   display: flex;
-  gap: 20px;
-}
-
-.detailText{
-  display: flex;
-  flex-direction: column;
   gap: 10px;
-}
-
-.detailTitle{
-  color: gray;
-  font-weight: bold;
-}
-
-.detailValue{
-  font-weight: 500;
-}
-
-.content{
-  font-size: 21px;
 }
 .avatar{
   object-fit: cover;
   border-radius: 50%;
 }
+
+.detailText{
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+
+}
+
+.detailTitle{
+  color: gray;
+  font-weight: bold;
+  gap: 5px;
+}
+
+.detailValue{
+  font-weight: 500;
+  margin-left: 5%;
+}
+
+.content{
+  font-size: 21px;
+}
+
 
 @media (max-width:768px){
   .imgContainer{
