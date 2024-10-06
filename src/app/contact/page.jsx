@@ -11,6 +11,8 @@ export const metadata = {
 const ContactPage = () => {
 
   return (
+
+
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <Image src="/contact.png" alt="" fill className={styles.img} />

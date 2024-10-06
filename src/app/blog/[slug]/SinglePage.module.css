@@ -26,35 +26,27 @@
 
 .detail{
   display: flex;
-  gap: 10px;
-}
-.avatar{
-  object-fit: cover;
-  border-radius: 50%;
+  gap: 20px;
 }
 
 .detailText{
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  font-size: 20px;
-
 }
 
 .detailTitle{
   color: gray;
   font-weight: bold;
-  gap: 5px;
 }
 
 .detailValue{
   font-weight: 500;
-  margin-left: 5%;
 }
 
 .content{
-  font-size: 21px;
+  font-size: 20px;
 }
-
 
 @media (max-width:768px){
   .imgContainer{
