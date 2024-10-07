@@ -1,20 +1,21 @@
+import { getPosts } from "@/lib/data";
 import styles from "./BlogPage.module.css";
 import PostCard from "@/components/PostCard/PostCard";
 
 
-const getData = async  () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+// const getData = async  () => {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-     return  res.json();
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
+//      return  res.json();
   
-}
+// }
 
 
 const BlogPage = async () => {
-  const posts = await getData()
+  const posts = await getPosts()
   return (
     <div className={styles.container}>
       {posts.map((post) => (
