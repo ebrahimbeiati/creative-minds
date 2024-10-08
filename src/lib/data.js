@@ -1,4 +1,5 @@
 import { Post } from "./models"
+import { User } from "./models"
 
 
 import { connectToDb } from "./utils";
@@ -13,28 +14,27 @@ export const getPosts = async () => {
     throw new Error("Failed to fetch posts")
     
 }
-   
 
 }
 export const getPost = async (slug) => {
       try {
         connectToDb();
-        const post = await Post.find(slug);
-        return post;
+const post = await Post.findOne({ slug });
+        return post
       } catch (error) {
-        console.log(error);
-        throw new Error("Failed to fetch posts");
+        console.log(error)
+        throw new Error("Failed to fetch post");
       }
 }
 
 export const getUser = async (id) => {
       try {
         connectToDb();
-        const user = await Post.findById(id);
+        const user = await User.findById(id);
         return user;
       } catch (error) {
-        console.log(error);
-        throw new Error("Failed to fetch posts");
+        console.error(`Error fetching user with id ${id}:`, error);
+        throw new Error(`Failed to fetch user with id ${id}: ${error.message}`);
       }
 }
 
