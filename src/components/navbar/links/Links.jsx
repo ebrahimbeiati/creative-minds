@@ -1,31 +1,26 @@
-"use client";
+// src/components/links/Links.jsx
+"use client"; // Ensure this is a client component
 
 import { useState } from "react";
 import styles from "./Links.module.css";
 import NavItems from "./navItems/navItems";
 import Image from "next/image";
+import { signOut } from "next-auth/react"; // Import signOut for logout
 
 const links = [
-  {
-    title: "Homepage",
-    path: "/",
-  },
-  {
-    title: "About",
-    path: "/about",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
-  {
-    title: "Blog",
-    path: "/blog",
-  },
+  { title: "Homepage", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Contact", path: "/contact" },
+  { title: "Blog", path: "/blog" },
 ];
 
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
+
+  const handleLogout = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    await signOut(); // Call signOut from next-auth
+  };
 
   return (
     <div className={styles.container}>
@@ -38,8 +33,12 @@ const Links = ({ session }) => {
             {session.user?.isAdmin && (
               <NavItems item={{ title: "Admin", path: "/admin" }} />
             )}
-            <form >
-              <button className={styles.logout}>Logout</button>
+            <form onSubmit={handleLogout}>
+              {" "}
+              {/* Use onSubmit for form */}
+              <button type="submit" className={styles.logout}>
+                Logout
+              </button>
             </form>
           </>
         ) : (

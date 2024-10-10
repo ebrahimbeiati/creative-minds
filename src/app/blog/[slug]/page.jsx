@@ -4,10 +4,35 @@ import PostUser from "@/components/postUser/PostUser";
 import { Suspense } from "react";
 import { getPost } from '@/lib/data';
 
+
+
+
+
+
+const getData = async (slug) => {
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`, { next: { revalidate: 3600 } });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+
+export const generateMetaData = async ({ params }) => {
+  const { slug } = params;
+  const post = await getPost(slug);
+  return {
+    title: post.title,
+    description: post.desc,
+    
+  }
+};
+
 const SinglePage =async ({ params }) => {
   const { slug } = params;
+  const post = await getData(slug);
 
-   const post = await getPost(slug);
+  //  const post = await getPost(slug);
 
   return (
     
