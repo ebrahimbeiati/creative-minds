@@ -4,23 +4,24 @@ import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from 'bcryptjs'
 
-export const handleGoogleLogin = async () => {
-    "use server"
-  // Indicates this function is a server action
-  await signIn("google"); // Change "github" to "google"
-};
+// export const handleGoogleLogin = async () => {
+//   try {
+//     await signIn("google");
+//   } catch (error) {
+//     console.log("Google sign-in error: ", error);
+//   }
+// };
 
 export const handleLogout = async () => {
-   // Indicates this function is a server action
-  await signOut(); // No change needed here
+  await signOut(); 
 };
 
-export const register = async (formData) => {
+export const register = async (previousState,formData) => {
   const { username, email, password, confirmPassword, img } =
     Object.fromEntries(formData);
 
   if (password !== confirmPassword) {
-    return { error: "Passwords do not match!" };
+       return { error: "Passwords do not match!" };
   }
 
   try {
@@ -37,7 +38,6 @@ export const register = async (formData) => {
       username,
         email,
         password: hashedPassword,
-      
       img,
     });
 
@@ -53,7 +53,7 @@ export const register = async (formData) => {
 
 
 
-export const login = async (formData) => {
+export const login = async (previousState,formData) => {
   const { username, password } =
     Object.fromEntries(formData);
 
@@ -62,7 +62,10 @@ export const login = async (formData) => {
       await signIn('credentials',{username, password});
     
   } catch (error) {
-    console.log(error);
-    return { error: "Something went wrong!" };
+        console.log(error);
+        if (error.message.includes("CredentialsSignin")) {
+          return { error: "Invalid username or password!" };
+        }
+        throw err;
   }
 };

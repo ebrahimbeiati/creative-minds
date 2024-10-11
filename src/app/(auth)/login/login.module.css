@@ -15,13 +15,20 @@
   border-radius: 5px;
 }
 
-.github{
-  width: 100%;
+.google{
   padding: 20px;
   cursor: pointer;
-  background-color: #fff;
-  color: #000;
+  background-color: red;
+  color: var(--textColor);
   font-weight: bold;
   border: none;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+
 }

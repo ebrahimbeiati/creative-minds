@@ -1,29 +1,44 @@
-// src/app/auth/login/page.jsx
-"use client"; // Ensure this component is a client component
+// import { handleGoogleLogin } from "@/lib/action";
+// import LoginForm from "@/components/loginForm/LoginForm";
+// import styles from "./login.module.css";
 
+// const LoginPage = () => {
+//   return (
+//     <div className={styles.container}>
+//       <div className={styles.wrapper}>
+//         <button className={styles.google} onClick={handleGoogleLogin}>
+//           Login with Google
+//         </button>
+//         <LoginForm />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LoginPage;
+"use client"
 import { signIn } from "next-auth/react";
+import LoginForm from "@/components/loginForm/LoginForm";
+import styles from "./login.module.css";
 
 const LoginPage = () => {
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-
-    const result = await signIn("google"); // Trigger Google sign-in
-    console.log(result); // Check the result for debugging
-
-    // Handle the result, e.g., check if login was successful
-    if (result.error) {
-      console.error("Login failed", result.error);
-    } else {
-      // Optionally redirect or update state after login
-      // e.g., window.location.href = '/'; // Redirect to home
+  const handleGoogleLogin = async () => {
+    try {
+      // This triggers the Google login
+      await signIn("google");
+    } catch (error) {
+      console.error("Google login failed", error);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleGoogleLogin}>
-        <button type="submit">Login with Google</button>
-      </form>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <button className={styles.google} onClick={handleGoogleLogin}>
+          Login with Google
+        </button>
+        <LoginForm />
+      </div>
     </div>
   );
 };
