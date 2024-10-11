@@ -1,3 +1,4 @@
+
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -28,17 +29,17 @@ const login = async (credentials) => {
     }
 }
 
-export default NextAuth({
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-  secret: process.env.AUTH_SECRET,  // Use the same secret in env variables
-  pages: {
-    signIn: "/auth/login",  // Optional custom sign-in page
-  },
-});
+// export default NextAuth({
+//   providers: [
+//     GoogleProvider({
+//       clientId: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     }),
+//   ],
+//   secret: process.env.AUTH_SECRET,  // Use the same secret in env variables
+//   pages: {
+//     signIn: "/auth/login",  // Optional custom sign-in page
+//   },
+// });
 
 

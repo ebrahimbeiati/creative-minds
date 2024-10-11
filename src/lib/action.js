@@ -4,13 +4,6 @@ import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from 'bcryptjs'
 
-// export const handleGoogleLogin = async () => {
-//   try {
-//     await signIn("google");
-//   } catch (error) {
-//     console.log("Google sign-in error: ", error);
-//   }
-// };
 
 export const handleLogout = async () => {
   await signOut(); 
