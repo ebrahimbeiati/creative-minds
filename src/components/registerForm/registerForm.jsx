@@ -1,5 +1,5 @@
 "use client"
-import styles from '@/components/registerForm/registerForm.module.css'
+import styles from './registerForm.module.css'
 import { register } from '@/lib/action';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -20,15 +20,9 @@ const RegisterForm = () => {
       <input type="text" placeholder="Username" name="username" />
       <input type="email" placeholder="Email" name="email" />
       <input type="password" placeholder="Password" name="password" />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        name="confirmPassword"
-      />
-
-          <button>Register</button>
-          
-{state?.error}          
+      <input type="password" placeholder="Confirm Password" name="confirmPassword"/>
+      <button>Register</button>  
+      {state?.error}          
           <Link href='/login'>
             Already have an account? <b>Login</b>
           </Link>

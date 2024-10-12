@@ -3,9 +3,33 @@ export const authConfig = {
         signIn: "/login",
     },
     providers: [],
-    callback: {
+    callbacks: {
+        async jwt({ token, user }) {
+                if (user) {
+                    token.id = user.id;
+                    token.isAdmin = user.isAdmin;
+                }
+                return token;
+            },
+        async session({ session, token }) {
+            if (token) {
+                 session.user.id = token.id;
+                session.user.isAdmin = token.isAdmin;
+            }  
+            
+             
+            return session;
+        },
         authorized({ auth, request }) {
-            return false;
+            const user = auth?.user;
+            const isOnAdminPanel = request.NextUrl?.pathname.startsWith('./admin');
+            const isOnBlogPage = request.NextUrl?.pathname.startsWith('/blog');
+            const isOnLoginPage = request.NextUrl?.pathname?.startsWith('/login');
+
+
+            
+
         },
     },
+
 };

@@ -23,7 +23,7 @@ import Link from "next/link";
 import Links from "./links/Links";
 import styles from "./navbar.module.css";
 import { getServerSession } from "next-auth/next"; // Correct import for server-side session fetching
-import { authOptions } from "@/lib/auth"; // Your authOptions configuration
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Your authOptions configuration
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions); // Server-side session fetching

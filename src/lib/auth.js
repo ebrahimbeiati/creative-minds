@@ -1,7 +1,7 @@
 
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
+// import NextAuth from "next-auth";
+// import GoogleProvider from "next-auth/providers/google";
+// import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils"; // Make sure to handle database connection properly
 import { User } from "./models";
 import bcrypt from 'bcryptjs';
