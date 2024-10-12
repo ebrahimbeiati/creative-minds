@@ -1,10 +1,11 @@
 import styles from './adminPage.module.css'
 import { Suspense } from 'react';
 import AdminPosts from '@/components/adminPosts/AdminPosts';
-import AdminPostForm from '@/components/adminPosts/AdminPostForm';
+import AdminPostForm from '@/components/adminPostsForm/AdminPostForm';
 import AdminUsers from '@/components/adminUsers/AdminUsers';
-import AdminUserForm from '@/components/adminUsers/AdminUserForm';
-const AdminPage = () => {
+import AdminUserForm from '@/components/adminUserForm/AdminUserForm';
+const AdminPage = async() => {
+  const session = await auth()
   return (
     <div className={styles.container}>
       <div className={styles.row}>
@@ -14,9 +15,7 @@ const AdminPage = () => {
           </Suspense>
         </div>
         <div className={styles.col}>
-        
-            <AdminPostForm />
-          
+          <AdminPostForm userId={session.user.id} />
         </div>
       </div>
       <div className={styles.row}>
@@ -26,9 +25,7 @@ const AdminPage = () => {
           </Suspense>
         </div>
         <div className={styles.col}>
-          
-            <AdminUserForm />
-         
+          <AdminUserForm userId={session.user.id} />
         </div>
       </div>
     </div>
