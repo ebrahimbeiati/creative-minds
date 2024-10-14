@@ -1,45 +1,107 @@
 
-// import NextAuth from "next-auth";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDb } from "./utils"; // Make sure to handle database connection properly
-import { User } from "./models";
-import bcrypt from 'bcryptjs';
+// import { connectToDb } from "./utils"; // Make sure to handle database connection properly
+// import { User } from "./models";
+// import bcrypt from 'bcryptjs';
 
+
+// const login = async (credentials) => {
+//     try {
+//         connectToDb();
+//         const user = await User.findOne({ username: credentials.username });
+//         if (!user) {
+//             throw new Error("User not found");
+//         }
+//         const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+//         if (!isPasswordValid) {
+//             throw new Error("Invalid password");
+
+//         }
+
+//         return user
+        
+//     } catch (error) {
+//         console.log(error);
+//         throw new Error("Failed to sign in");
+        
+//     }
+// }
+
+
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { connectToDb } from "./utils";
+import { User } from "./models";
+import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
 
 const login = async (credentials) => {
-    try {
+  try {
+    connectToDb();
+    const user = await User.findOne({ username: credentials.username });
+
+    if (!user) throw new Error("Wrong credentials!");
+
+    const isPasswordCorrect = await bcrypt.compare(
+      credentials.password,
+      user.password
+    );
+
+    if (!isPasswordCorrect) throw new Error("Wrong credentials!");
+
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to login!");
+  }
+};
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
+  ...authConfig,
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    CredentialsProvider({
+      async authorize(credentials) {
+        try {
+          const user = await login(credentials);
+          return user;
+        } catch (err) {
+          return null;
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account.provider === "github") {
         connectToDb();
-        const user = await User.findOne({ username: credentials.username });
-        if (!user) {
-            throw new Error("User not found");
+        try {
+          const user = await User.findOne({ email: profile.email });
+
+          if (!user) {
+            const newUser = new User({
+              username: profile.login,
+              email: profile.email,
+              image: profile.avatar_url,
+            });
+
+            await newUser.save();
+          }
+        } catch (err) {
+          console.log(err);
+          return false;
         }
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isPasswordValid) {
-            throw new Error("Invalid password");
-
-        }
-
-        return user
-        
-    } catch (error) {
-        console.log(error);
-        throw new Error("Failed to sign in");
-        
-    }
-}
-
-// export default NextAuth({
-//   providers: [
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     }),
-//   ],
-//   secret: process.env.AUTH_SECRET,  // Use the same secret in env variables
-//   pages: {
-//     signIn: "/auth/login",  // Optional custom sign-in page
-//   },
-// });
-
-
+      }
+      return true;
+    },
+    ...authConfig.callbacks,
+  },
+});

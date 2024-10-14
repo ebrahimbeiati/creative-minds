@@ -4,8 +4,9 @@ import AdminPosts from '@/components/adminPosts/AdminPosts';
 import AdminPostForm from '@/components/adminPostsForm/AdminPostForm';
 import AdminUsers from '@/components/adminUsers/AdminUsers';
 import AdminUserForm from '@/components/adminUserForm/AdminUserForm';
+import {auth}  from '@/lib/auth';
 const AdminPage = async() => {
-  const session = await auth()
+  const session = await auth();
   return (
     <div className={styles.container}>
       <div className={styles.row}>
