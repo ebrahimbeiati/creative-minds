@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import { signIn } from "next-auth/react";
 import LoginForm from "@/components/loginForm/LoginForm";
 import styles from "./login.module.css";
@@ -7,7 +6,6 @@ import styles from "./login.module.css";
 const LoginPage = () => {
   const handleGoogleLogin = async () => {
     try {
-      // This triggers the Google login
       await signIn("google");
     } catch (error) {
       console.error("Google login failed", error);
