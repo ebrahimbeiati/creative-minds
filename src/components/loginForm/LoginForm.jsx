@@ -76,30 +76,30 @@ const LoginForm = () => {
   const [role, setRole] = useState("user"); // Default role is "user"
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   setError(null);
 
-    // Attempt to sign in with credentials
-    const result = await signIn("credentials", {
-      redirect: false, // Prevent automatic redirection
-      username,
-      password,
-    });
+   // Attempt to sign in with credentials
+   const result = await signIn("credentials", {
+     redirect: false, // Prevent automatic redirection
+     username,
+     password,
+   });
 
-    console.log("signIn result:", result); // Debugging line
+   console.log("signIn result:", result); // Debugging line
 
-    if (result.error) {
-      setError("Invalid username or password");
-    } else if (result.ok && result.user) {
-      // Ensure result.user exists
-      if (result.user.isAdmin) {
-        router.push("/admin"); // Redirect if admin
-      } else {
-        router.push("/user"); // Redirect if regular user
-      }
-    }
-  };
+   if (result.error) {
+     setError("Invalid username or password");
+   } else if (result.ok && result.user) {
+     // Ensure result.user exists
+     if (result.user.isAdmin) {
+       router.push("/admin"); // Redirect if admin
+     } else {
+       router.push("/user"); // Redirect if regular user
+     }
+   }
+ };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -123,7 +123,6 @@ const LoginForm = () => {
       />
       <button type="submit">Login</button>
       {error && <p className={styles.error}>{error}</p>}{" "}
-      {/* Display error if any */}
       <Link href="/register">
         {"Don't have an account?"} <b>Register</b>
       </Link>

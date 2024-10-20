@@ -76,7 +76,6 @@
 // });
 
 
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -84,44 +83,30 @@ import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
-import { getSession } from "next-auth/react";
-
-export const auth = async () => {
-  const session = await getSession();
-
-  if (!session || !session.user.isAdmin) {
-    throw new Error("Unauthorized"); // Handle unauthorized access
-  }
-
-  return session; // Return session if user is authorized
-};
-
 
 // Function to handle login for credentials provider
 const login = async (credentials) => {
-  try {
-    await connectToDb();
-    const user = await User.findOne({ username: credentials.username });
+  await connectToDb(); // Ensure DB connection is established
+  const user = await User.findOne({ username: credentials.username });
 
-    if (!user) throw new Error("Wrong credentials!");
+  if (!user) throw new Error("Wrong credentials!");
 
-    const isPasswordCorrect = await bcrypt.compare(
-      credentials.password,
-      user.password
-    );
+  const isPasswordCorrect = await bcrypt.compare(
+    credentials.password,
+    user.password
+  );
 
-    if (!isPasswordCorrect) throw new Error("Wrong credentials!");
+  if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
-    return user;
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to login!");
-  }
+  return {
+    id: user.id,
+    isAdmin: user.isAdmin,
+    email: user.email,
+  };
 };
 
 // NextAuth configuration
-const authOptions = {
-  ...authConfig,
+export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -134,34 +119,41 @@ const authOptions = {
     }),
   ],
   callbacks: {
-async signIn({ user, account, profile }) {
-  if (account.provider === "google") {
-    await connectToDb();
-    try {
-      const existingUser = await User.findOne({ email: profile.email });
-      console.log("Existing user:", existingUser);
+    async signIn({ user, account, profile }) {
+      if (account.provider === "google") {
+        await connectToDb();
+        const existingUser = await User.findOne({ email: profile.email });
 
-      if (!existingUser) {
-        const newUser = new User({
-          username: profile.name, // Ensure this is a unique username
-          email: profile.email,
-          img: profile.picture, // This is the profile picture from Google
-        });
-
-        await newUser.save();
-        console.log("New user created:", newUser);
-      } else {
-        console.log("User already exists:", existingUser);
+        if (!existingUser) {
+          const newUser = new User({
+            username: profile.name,
+            email: profile.email,
+            img: profile.picture,
+            isAdmin: false, // Set this based on your requirements
+          });
+          await newUser.save();
+        }
       }
-    } catch (err) {
-      console.log("Error during user creation:", err);
-      return false; // Prevent sign in on error
-    }
-  }
-  return true; // Allow sign in
-},
-
-    ...authConfig.callbacks,
+      return true; // Allow sign in
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.isAdmin = user.isAdmin; // Store isAdmin in the token
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.isAdmin = token.isAdmin; // Add isAdmin to session
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/auth/login", // Custom sign-in page
+    error: "/auth/error", // Custom error page
   },
 };
 

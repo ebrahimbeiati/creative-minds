@@ -156,6 +156,9 @@
 //     return { error: "Failed to sign in" };
 //   }
 // };
+
+
+
 "use server";
 
 import { getSession } from "next-auth/react"; // Import getSession to check session data
@@ -271,9 +274,9 @@ export const deleteUser = async (formData) => {
 };
 
 // Handle GitHub login
-export const handleGithubLogin = async () => {
+export const handleGoogleLogin = async () => {
   "use server";
-  await signIn("github");
+  await signIn("google");
 };
 
 // Handle logout
@@ -284,11 +287,11 @@ export const handleLogout = async () => {
 
 // Function for user registration (Admin only)
 export const register = async (previousState, formData) => {
-  const { username, email, password, img, passwordRepeat } =
+  const { username, email, password, img, confirmPassword } =
     Object.fromEntries(formData);
 
   // Check if passwords match
-  if (password !== passwordRepeat) {
+  if (password !== confirmPassword) {
     return { error: "Passwords do not match" };
   }
 

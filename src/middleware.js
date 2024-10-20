@@ -15,6 +15,10 @@
 
 // middleware.js
 // middleware.js
+
+
+// src/middleware/adminMiddleware.js
+
 import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 
@@ -43,6 +47,6 @@ export default adminMiddleware;
 export const config = {
   matcher: [
     "/admin/:path*", // Protect all /admin routes
-    "/blog/:path*", // You can include this if needed
+    "/blog/:path*", // Optionally protect blog routes if needed
   ],
 };

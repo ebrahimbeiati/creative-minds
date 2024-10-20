@@ -72,6 +72,9 @@
 // const handler = NextAuth(authOptions);
 // export { handler as GET, handler as POST };
 // pages/api/auth/[...nextauth].js
+
+
+
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -177,3 +180,4 @@ export const authOptions = {
 // NextAuth handler
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+
