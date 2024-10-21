@@ -1,23 +1,14 @@
-"use client";
-import { signIn } from "next-auth/react";
-import LoginForm from "@/components/loginForm/LoginForm";
+import LoginForm from "@/components/loginForm/loginForm";
+import { handleGoogleLogin } from "@/lib/action";
 import styles from "./login.module.css";
 
 const LoginPage = () => {
-  const handleGoogleLogin = async () => {
-    try {
-      await signIn("google");
-    } catch (error) {
-      console.error("Google login failed", error);
-    }
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <button className={styles.google} onClick={handleGoogleLogin}>
-          Login with Google
-        </button>
+        <form action={handleGoogleLogin}>
+          <button className={styles.github}>Login with Google</button>
+        </form>
         <LoginForm />
       </div>
     </div>

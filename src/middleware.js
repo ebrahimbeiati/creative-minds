@@ -18,35 +18,34 @@
 
 
 // src/middleware/adminMiddleware.js
-
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
-// Custom middleware to protect admin routes
-const adminMiddleware = async (req) => {
-  const session = await getSession({ req });
+export async function middleware(req) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // If no session, redirect to login
-  if (!session) {
+  const { pathname } = req.nextUrl;
+  const isOnAdminPanel = pathname.startsWith("/admin");
+  const isOnLoginPage = pathname.startsWith("/login");
+
+  // If user is not logged in, redirect to login page
+  if (!token && !isOnLoginPage) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // If user is not admin, redirect to a forbidden page
-  if (!session.user.isAdmin) {
+  // If user is not an admin, block access to admin panel
+  if (isOnAdminPanel && !token?.isAdmin) {
     return NextResponse.redirect(new URL("/403", req.url));
   }
 
-  // If user is authenticated and is admin, allow the request to proceed
+  // Prevent logged-in users from visiting login page
+  if (isOnLoginPage && token) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   return NextResponse.next();
-};
+}
 
-// Export the middleware function
-export default adminMiddleware;
-
-// Configuration for the middleware
 export const config = {
-  matcher: [
-    "/admin/:path*", // Protect all /admin routes
-    "/blog/:path*", // Optionally protect blog routes if needed
-  ],
+  matcher: ["/admin/:path*", "/blog/:path*", "/login"],
 };
