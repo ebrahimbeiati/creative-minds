@@ -1,28 +1,33 @@
-"use client";
+import { getUsers } from "@/lib/data";
+import styles from "./adminUsers.module.css";
+import Image from "next/image";
+import { deleteUser } from "@/lib/action";
 
-import { addUser } from "@/lib/action";
-import styles from "./adminUserForm.module.css";
-import { useFormState } from "react-dom";
-
-const AdminUserForm = () => {
-  const [state, formAction] = useFormState(addUser, undefined);
+const AdminUsers = async () => {
+  const users = await getUsers();
 
   return (
-    <form action={formAction} className={styles.container}>
-      <h1>Add New User</h1>
-      <input type="text" name="username" placeholder="username" />
-      <input type="text" name="email" placeholder="email" />
-      <input type="password" name="password" placeholder="password" />
-      <input type="text" name="img" placeholder="img" />
-      <select name="isAdmin">
-        <option value="false">Is Admin?</option>
-        <option value="false">No</option>
-        <option value="true">Yes</option>
-      </select>
-      <button>Add</button>
-      {state?.error}
-    </form>
+    <div className={styles.container}>
+      <h1>Users</h1>
+      {users.map((user) => (
+        <div className={styles.user} key={user.id}>
+          <div className={styles.detail}>
+            <Image
+              src={user.img || "/noAvatar.png"}
+              alt=""
+              width={50}
+              height={50}
+            />
+            <span>{user.username}</span>
+          </div>
+          <form action={deleteUser}>
+            <input type="hidden" name="id" value={user.id} />
+            <button className={styles.userButton}>Delete</button>
+          </form>
+        </div>
+      ))}
+    </div>
   );
 };
 
-export default AdminUserForm;
+export default AdminUsers;

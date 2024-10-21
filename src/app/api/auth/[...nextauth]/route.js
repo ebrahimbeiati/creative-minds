@@ -178,7 +178,6 @@
 // };
 
 // // NextAuth handler
-// const handler = NextAuth(authOptions);
-// export { handler as GET, handler as POST };
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
 
-export { GET, POST } from "@/lib/auth";
