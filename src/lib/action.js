@@ -3,8 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
-import { signIn } from "./auth";
-
+import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
 export const addPost = async (prevState, formData) => {
@@ -83,15 +82,6 @@ export const deleteUser = async (formData) => {
   }
 };
 
-export const handleGoogleLogin = async () => {
-  "use server";
-  await signIn("google");
-};
-
-export const handleLogout = async () => {
-  "use server";
-  await signOut();
-};
 
 export const register = async (previousState, formData) => {
   const { username, email, password, img, passwordRepeat } =
@@ -128,6 +118,17 @@ export const register = async (previousState, formData) => {
     console.log(err);
     return { error: "Something went wrong!" };
   }
+};
+
+
+export const handleGoogleLogin = async () => {
+  "use server";
+  await signIn("google");
+};
+
+export const handleLogout = async () => {
+  "use server";
+  await signOut();
 };
 
 export const login = async (prevState, formData) => {
