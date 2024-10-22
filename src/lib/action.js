@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
-import { signIn, signOut } from "./auth";
+import { signIn } from "./auth";
 
 import bcrypt from "bcryptjs";
 
@@ -143,4 +143,7 @@ export const login = async (prevState, formData) => {
     }
     throw err;
   }
+
+
+
 };

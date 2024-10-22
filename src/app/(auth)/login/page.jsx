@@ -7,7 +7,7 @@ const LoginPage = () => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <form action={handleGoogleLogin}>
-          <button className={styles.gi}>Login with Google</button>
+          <button className={styles.google}>Login with Google</button>
         </form>
         <LoginForm />
       </div>
