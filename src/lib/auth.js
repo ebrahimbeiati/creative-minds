@@ -84,6 +84,9 @@ import { User } from "./models";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
+
+
+//login credential
 const login = async (credentials) => {
   try {
     connectToDb();
@@ -104,6 +107,10 @@ const login = async (credentials) => {
     throw new Error("Failed to login!");
   }
 };
+
+
+
+// NextAuth configuration
 
 export const {
   handlers: { GET, POST },
