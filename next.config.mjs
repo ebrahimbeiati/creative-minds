@@ -7,7 +7,7 @@
 // next.config.mjs
 // next.config.mjs
 
-export default {
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -21,3 +21,5 @@ export default {
     ]
   }
 };
+
+export default nextConfig;

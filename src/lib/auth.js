@@ -1,92 +1,11 @@
-
-// import NextAuth from "next-auth";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import { connectToDb } from "./utils";
-// import { User } from "./models";
-// import bcrypt from "bcryptjs";
-// import { authConfig } from "./auth.config";
-
-// // Function to handle login for credentials provider
-// const login = async (credentials) => {
-//   try {
-//     await connectToDb();
-//     const user = await User.findOne({ username: credentials.username });
-
-//     if (!user) throw new Error("Wrong credentials!");
-
-//     const isPasswordCorrect = await bcrypt.compare(
-//       credentials.password,
-//       user.password
-//     );
-
-//     if (!isPasswordCorrect) throw new Error("Wrong credentials!");
-
-//     return user;
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Failed to login!");
-//   }
-// };
-
-// // NextAuth configuration
-// export default NextAuth({
-//   ...authConfig,
-//   providers: [
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     }),
-//     CredentialsProvider({
-//       async authorize(credentials) {
-//         try {
-//           const user = await login(credentials);
-//           return user;
-//         } catch (err) {
-//           return null;
-//         }
-//       },
-//     }),
-//   ],
-//   callbacks: {
-//     async signIn({ user, account, profile }) {
-//       if (account.provider === "google") {
-//         await connectToDb();
-//         try {
-//           const existingUser = await User.findOne({ email: profile.email });
-
-//           if (!existingUser) {
-//             const newUser = new User({
-//               username: profile.name, // You can use profile.email or profile.given_name if needed
-//               email: profile.email,
-//               image: profile.picture, // This is the profile picture from Google
-//             });
-
-//             await newUser.save();
-//           }
-//         } catch (err) {
-//           console.log(err);
-//           return false;
-//         }
-//       }
-//       return true;
-//     },
-//     ...authConfig.callbacks,
-//   },
-// });
-
-
 import NextAuth from "next-auth";
-import GoogleProvider from 'next-auth/providers/google'
+import  GoogleProvider  from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
-
-
-//login credential
 const login = async (credentials) => {
   try {
     connectToDb();
@@ -108,10 +27,6 @@ const login = async (credentials) => {
   }
 };
 
-
-
-// NextAuth configuration
-
 export const {
   handlers: { GET, POST },
   auth,
@@ -119,7 +34,8 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
-  providers: [
+  
+    providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -127,20 +43,24 @@ export const {
         params: {
           prompt: "consent",
           access_type: "offline",
-          response_type: "code",
+          response_type: "code"
         }
       }
     }),
-    CredentialsProvider({
-      async authorize(credentials) {
-        try {
-          const user = await login(credentials);
-          return user;
-        } catch (err) {
-          return null;
-        }
-      },
-    }),
+   CredentialsProvider({
+  async authorize(credentials) {
+    try {
+      console.log("Authorizing user:", credentials); // Log incoming credentials
+      const user = await login(credentials);
+      console.log("User found:", user); // Log user if found
+      return user;
+    } catch (err) {
+      console.log("Error during authorization:", err.message); // Log the error
+      return null; // Return null if user is not authorized
+    }
+  },
+}),
+
   ],
   callbacks: {
     async signIn({ user, account, profile }) {

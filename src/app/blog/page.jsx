@@ -19,8 +19,6 @@ const BlogPage = async () => {
   // FETCH DATA WITH AN API
   const posts = await getData();
 
-  // FETCH DATA WITHOUT AN API
-  // const posts = await getPosts();
 
   return (
     <div className={styles.container}>

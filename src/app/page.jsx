@@ -12,11 +12,7 @@ const Home = () => {
           Special Team best consulting & finance solution provider.
        
         </p>
-        {/* <div className={styles.buttons}>
-          <button className={styles.button}>Learn More</button>
-          <button className={styles.button}>Contact</button>
-        </div> */}
-    
+     
       </div>
       <div className={styles.imgContainer}>
         {/* If you experience issues with the GIF in next/image, try using img tag */}
