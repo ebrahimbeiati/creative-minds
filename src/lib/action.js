@@ -1,13 +1,14 @@
+
+
+
 "use server";
 
 import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
-import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
-
-export const addPost = async ( formData) => {
+export const addPost = async (prevState, formData) => {
 
   const { title, desc, slug, userId } = Object.fromEntries(formData);
 
@@ -46,7 +47,7 @@ export const deletePost = async (formData) => {
   }
 };
 
-export const addUser = async (formData) => {
+export const addUser = async (prevState, formData) => {
   const { username, email, password, img } = Object.fromEntries(formData);
 
   try {
@@ -93,7 +94,7 @@ export const handleLogout = async () => {
   await signOut();
 };
 
-export const register = async (formData) => {
+export const register = async (previousState, formData) => {
   const { username, email, password, img, passwordRepeat } =
     Object.fromEntries(formData);
 
@@ -130,31 +131,25 @@ export const register = async (formData) => {
   }
 };
 
-export const login = async (formData) => {
-  const { username, password } = formData;
-
-  if (!username || !password) {
-    return { error: "Username and password are required" };
-  }
-
-  await connectToDb(); // Ensure database connection
-
+export const login = async (prevState, formData) => {
+  const { username, password } = Object.fromEntries(formData);
   try {
-    const res = await signIn("credentials", {
-      redirect: false, // Do not redirect automatically
+    await connectToDb();
+    const user = await User.findOne({ username });
+    if (!user) return { error: "User not found" };
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return { error: "Invalid password" };
+    const response = await signIn("credentials", {
       username,
       password,
+      redirect: false,
     });
-
-    console.log("signIn response:", res); // Log the response from signIn
-
-    if (res.ok) {
-      return { success: true }; // Return success if login was successful
-    } else {
-      return { error: res.error }; // Return the error from signIn
+    if (response.error) {
+      return { error: response.error };
     }
+    return { success: true };
   } catch (err) {
-    console.log(err);
-    return { error: "An unexpected error occurred" };
+    console.error(err);
+    return { error: "An unexpected error occurred." };
   }
 };

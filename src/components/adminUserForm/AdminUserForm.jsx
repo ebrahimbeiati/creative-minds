@@ -1,5 +1,5 @@
 import { getUsers } from "@/lib/data";
-import styles from "./adminUsers.module.css";
+import styles from "./adminUserForm.module.css";
 import Image from "next/image";
 import { deleteUser } from "@/lib/action";
 
@@ -12,12 +12,12 @@ const AdminUsers = async () => {
       {users.map((user) => (
         <div className={styles.user} key={user.id}>
           <div className={styles.detail}>
-            <Image
-              src={user.img || "/noAvatar.png"}
+            {/* <Image
+              src={use}
               alt=""
               width={50}
               height={50}
-            />
+            /> */}
             <span>{user.username}</span>
           </div>
           <form action={deleteUser}>
