@@ -11,7 +11,11 @@ import {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider dynamic>
+    <ClerkProvider
+      frontendApi={process.env.NEXT_PUBLIC_CLERK_FRONTEND_API}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      options={{ debug: true }} // Enable debugging
+    >
       <html lang="en">
         <body>
           <SignedOut>
