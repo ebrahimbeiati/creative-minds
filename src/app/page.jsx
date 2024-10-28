@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./home.module.css";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -10,7 +10,6 @@ const Home = () => {
   useEffect(() => {
 
     if (user) {
-      console.log("User object:", JSON.stringify(user, null, 2)); // Log full user object
 
       fetch("/api/auth", {
         method: "POST",
@@ -23,7 +22,6 @@ const Home = () => {
       });
     }
   }, [user]);
-  console.log(UserButton)
 
   return (
     <div className={styles.container}>

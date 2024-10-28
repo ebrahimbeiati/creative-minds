@@ -1,5 +1,4 @@
-import { SignIn, useAuth } from "@clerk/nextjs"
-import { useEffect } from "react";
+import { SignIn} from "@clerk/nextjs"
 
 const page = () => {
 
