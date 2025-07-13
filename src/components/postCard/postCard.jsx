@@ -11,7 +11,7 @@ const PostCard = ({ post }) => {
             <Image src={post.img} alt="" fill className={styles.img} />
           </div>
         )}
-        <span className={styles.date}>
+        <span className={styles.date1}>
           {post.createdAt?.toString().slice(4, 16)}
         </span>
       </div>

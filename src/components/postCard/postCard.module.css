@@ -20,7 +20,7 @@
   object-fit: cover; /* This ensures the image fills the container */
 }
 
-.date{
+.date1{
   font-size: 12px;
   transform: rotate(270deg);
   margin: auto;
