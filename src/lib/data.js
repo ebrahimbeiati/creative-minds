@@ -1,6 +1,7 @@
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
+import mongoose from "mongoose";
 
 export const getPosts = async () => {
   try {
@@ -27,12 +28,18 @@ export const getPost = async (slug) => {
 export const getUser = async (id) => {
   noStore();
   try {
+    // Check if the ID is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log(`Invalid ObjectId: ${id}`);
+      return null;
+    }
+
     connectToDb();
     const user = await User.findById(id);
     return user;
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to fetch user!");
+    return null; // Return null instead of throwing error
   }
 };
 
