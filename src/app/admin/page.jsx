@@ -5,8 +5,8 @@ import AdminPostForm from "@/components/adminPostForm/adminPostForm";
 import AdminUsers from "@/components/adminUsers/adminUsers";
 import AdminUserForm from "@/components/adminUserForm/adminUserForm";
 
-const AdminPage = async () => {
 
+const AdminPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
