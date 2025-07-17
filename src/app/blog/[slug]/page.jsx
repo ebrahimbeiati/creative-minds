@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import PostUser from "@/components/postUser/postUser";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
@@ -97,13 +98,13 @@ const SinglePostPage = async ({ params }) => {
       <div className="py-12">
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
-          <a 
+          <p className="text-gray-600 mb-8">The blog post you&apos;re looking for doesn&apos;t exist.</p>
+          <Link 
             href="/blog"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
           >
             Back to Blog
-          </a>
+          </Link>
         </div>
       </div>
     );

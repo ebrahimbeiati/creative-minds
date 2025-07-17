@@ -12,6 +12,7 @@ import {
   X
 } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -89,7 +90,7 @@ const ContactPage = () => {
               Get in <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Have a question, suggestion, or just want to say hello? We'd love to hear from you. 
+              Have a question, suggestion, or just want to say hello? We&apos;d love to hear from you. 
               Our team is here to help and support your creative journey.
             </p>
           </div>
@@ -109,11 +110,11 @@ const ContactPage = () => {
               {/* Contact Information */}
               <div>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Let's start a conversation
+                  Let&apos;s start a conversation
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Whether you have a question about our platform, want to share feedback, 
-                  or just want to connect, we're here to help. Reach out to us through 
+                  or just want to connect, we&apos;re here to help. Reach out to us through 
                   any of the channels below.
                 </p>
                 
@@ -288,7 +289,7 @@ const ContactPage = () => {
               Common questions about Creative Minds
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Can't find what you're looking for? Feel free to reach out to us directly.
+              Can&apos;t find what you&apos;re looking for? Feel free to reach out to us directly.
             </p>
           </div>
           
@@ -301,7 +302,7 @@ const ContactPage = () => {
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                   <p className="flex-auto">
                     Simply sign up for an account and start exploring! You can read blog posts immediately 
-                    and create your own content once you're ready to share your ideas with the community.
+                    and create your own content once you&apos;re ready to share your ideas with the community.
                   </p>
                 </dd>
               </div>
@@ -357,19 +358,19 @@ const ContactPage = () => {
               Start sharing your ideas and connecting with creators from around the world.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a 
+              <Link 
                 href="/blog"
                 className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200 flex items-center space-x-2"
               >
                 <span>Explore Our Blog</span>
                 <ArrowRight className="h-4 w-4" />
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/about"
                 className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors"
               >
                 Learn more <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

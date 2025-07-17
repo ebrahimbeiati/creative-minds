@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { 
   Users, 
   Lightbulb, 
@@ -27,7 +28,7 @@ const AboutPage = () => {
               About <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Creative Minds</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              We're on a mission to empower creators, thinkers, and innovators to share their ideas with the world. 
+              We&apos;re on a mission to empower creators, thinkers, and innovators to share their ideas with the world. 
               Our platform connects creative minds and builds communities around meaningful content.
             </p>
           </div>
@@ -55,17 +56,17 @@ const AboutPage = () => {
                 </p>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Our platform is designed to break down barriers between creators and their audiences. 
-                  Whether you're a seasoned writer, a budding entrepreneur, or someone with a unique 
+                  Whether you&apos;re a seasoned writer, a budding entrepreneur, or someone with a unique 
                   perspective to share, we provide the tools and community you need to succeed.
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
-                  <a 
+                  <Link 
                     href="/blog"
                     className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200"
                   >
                     Explore Our Blog
                     <ArrowRight className="ml-2 inline-block h-4 w-4" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="relative">
@@ -151,7 +152,7 @@ const AboutPage = () => {
                 Building a community of creators
               </h2>
               <p className="mt-4 text-lg leading-8 text-gray-600">
-                We're just getting started, but we're committed to building something special together.
+                We&apos;re just getting started, but we&apos;re committed to building something special together.
               </p>
             </div>
             
@@ -222,7 +223,7 @@ const AboutPage = () => {
                 <h3 className="mt-6 text-lg font-semibold text-gray-900">Quality Content</h3>
                 <p className="mt-2 text-gray-600">
                   Our platform promotes high-quality, meaningful content that adds value to 
-                  readers' lives.
+                  readers&apos; lives.
                 </p>
               </div>
             </div>
@@ -242,18 +243,18 @@ const AboutPage = () => {
               their ideas with the world.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a 
+              <Link 
                 href="/blog"
                 className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200"
               >
                 Start Reading
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/contact"
                 className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors"
               >
                 Contact us <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
