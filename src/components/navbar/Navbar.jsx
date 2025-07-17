@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Links from "./links/Links";
-import { SignedIn } from "@clerk/nextjs";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -30,14 +29,13 @@ const Navbar = () => {
 
         {/* Desktop Admin Button */}
         <div className="hidden md:block">
-          <SignedIn>
-            <Link 
-              href="/admin"
-              className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
-            >
-              Admin
-            </Link>
-          </SignedIn>
+          {/* Temporarily removed Clerk components for build */}
+          <Link 
+            href="/admin"
+            className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            Admin
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -92,15 +90,14 @@ const Navbar = () => {
             
             {/* Mobile Admin Button */}
             <div className="pt-4 border-t border-gray-200">
-              <SignedIn>
-                <Link 
-                  href="/admin"
-                  className="block w-full text-center rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Admin
-                </Link>
-              </SignedIn>
+              {/* Temporarily removed Clerk components for build */}
+              <Link 
+                href="/admin"
+                className="block w-full text-center rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Admin
+              </Link>
             </div>
           </div>
         </div>
