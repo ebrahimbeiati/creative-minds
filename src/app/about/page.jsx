@@ -107,7 +107,7 @@ const AboutPage = () => {
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                   <p className="flex-auto">
-                    We constantly push the boundaries of what's possible, creating new ways for 
+                    We constantly push the boundaries of what&apos;s possible, creating new ways for 
                     creators to express themselves and connect with their audience.
                   </p>
                 </dd>

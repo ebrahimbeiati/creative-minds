@@ -69,7 +69,7 @@ const ContactPage = () => {
             <div className="flex-1">
               <h3 className="text-sm font-medium text-green-800">Message sent successfully!</h3>
               <p className="mt-1 text-sm text-green-700">
-                Thank you for reaching out. We'll get back to you within 24 hours.
+                Thank you for reaching out. We&apos;ll get back to you within 24 hours.
               </p>
             </div>
             <button
