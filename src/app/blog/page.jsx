@@ -94,7 +94,8 @@ const BlogPage = () => {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch posts");
+        console.log("API response not ok, using sample data");
+        return samplePosts;
       }
 
       const fetchedPosts = await res.json();
@@ -107,8 +108,7 @@ const BlogPage = () => {
 
       return fetchedPosts;
     } catch (error) {
-      console.error("Error fetching posts:", error);
-      console.log("Using sample data due to connection error");
+      console.log("Error fetching posts, using sample data:", error.message);
       return samplePosts; // Return sample data on error
     }
   };
